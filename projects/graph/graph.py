@@ -97,7 +97,32 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        # Create an empty Stack
+        stack = Stack()
+        # create a visited set
+        visited = set()
+        # Add the starting path to Stack
+        stack.push([starting_vertex])
+        # While there is something in the stack
+        while stack.size() > 0:
+            path = stack.pop()
+            node = path[-1]
+
+            # If node matches the destination vertex then return the path
+            if node == destination_vertex:
+                return path
+
+            #If node is not in visited, add it
+            if node not in visited:
+                visited.add(node)
+
+                # Find new paths and push to stack.
+                for next_vertex in self.vertices[node]:
+                    if next_vertex not in visited:
+                        new_path = path.copy()
+                        new_path.append(next_vertex)
+
+                        stack.push(new_path)
 
 
 
@@ -179,4 +204,5 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
+    print("starting DFS")
     print(graph.dfs(1, 6))
