@@ -90,7 +90,35 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+
+        #create Queue
+        q = Queue()
+        #append the starting vertex to queue
+        q.enqueue([starting_vertex])
+        #create visited set
+        visited = set()
+        #While there is something in the Queue
+        while q.size() > 0:
+            #use the dequeue method for path
+            path = q.dequeue()
+            #the last node in the path is current node
+            node = path[-1]
+            if node not in visited:
+                #if the node is the destination_vertex, then return the path
+                if node == destination_vertex:
+                    return path
+                #else add the node to visited
+                else:
+                    visited.add(node)
+                    for next_node in self.vertices[node]:
+                        #create a copy of the path
+                        new_path = path.copy()
+                        #append the next nodes to the path
+                        new_path.append(next_node)
+                        #append the copied path to Queue
+                        q.enqueue(new_path)
+        return None
+
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
@@ -117,10 +145,10 @@ class Graph:
                 visited.add(node)
 
                 # Find new paths and push to stack.
-                for next_vertex in self.vertices[node]:
-                    if next_vertex not in visited:
+                for next_node in self.vertices[node]:
+                    if next_node not in visited:
                         new_path = path.copy()
-                        new_path.append(next_vertex)
+                        new_path.append(next_node)
 
                         stack.push(new_path)
 
@@ -197,6 +225,7 @@ if __name__ == '__main__':
     Valid BFS path:
         [1, 2, 4, 6]
     '''
+    print("starting BFS")
     print(graph.bfs(1, 6))
 
     '''
