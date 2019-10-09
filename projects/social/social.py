@@ -1,4 +1,16 @@
 
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size():
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
 
 class User:
     def __init__(self, name):
@@ -60,7 +72,29 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        
+        #Use BFS and make a queue
+        q = Queue()
+        # Use enqueue to append userid to the queue
+        q.enqueue([userID])
+
+        #while queue isn't empty
+        while q.size() > 0:
+            #dequeue
+            path = q.dequeue()
+            #last on path is the new current user
+            node = path[-1]
+            #if node hasn't been visited
+            if node not in visited:
+                visited[node] = path
+                #for each of the node's neighbor, make a copy, append the node to the copy
+                #enqueue the copied path 
+                for next_node in self.friendships[node]:
+                    copiedPath = path.copy()
+                    copiedPath.append(next_node)
+                    q.enqueue(copiedPath)
+
+
         return visited
 
 

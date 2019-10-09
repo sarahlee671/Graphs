@@ -24,8 +24,8 @@ def island_counter(matrix):
     for x in range(len(matrix[0])):
         for y in range(len(matrix)):
             #if not visited
-            if not visited[x][y]:
-                if matrix[x][y] == 1:
+            if not visited[y][x]:
+                if matrix[y][x] == 1:
                     #Run some DFS and mark each as visited 
                     dft(x, y, matrix, visited)
 
