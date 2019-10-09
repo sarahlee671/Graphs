@@ -78,9 +78,9 @@ class Graph:
             visited.add(starting_vertex)
             print(starting_vertex)
             #for every neighbor node
-            for node in self.vertices[starting_vertex]:
-                if node not in visited:
-                    self.dft_recursive(node, visited)
+            for child_vertex in self.vertices[starting_vertex]:
+                if child_vertex not in visited:
+                    self.dft_recursive(child_vertex, visited)
         
             return visited
         
@@ -110,6 +110,7 @@ class Graph:
                 #else add the node to visited
                 else:
                     visited.add(node)
+                    #for every neighbor node
                     for next_node in self.vertices[node]:
                         #create a copy of the path
                         new_path = path.copy()
